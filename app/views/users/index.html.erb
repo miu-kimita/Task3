@@ -1,0 +1,27 @@
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <%= render 'users/list', user: @user,book: Book.new %>
+  <div class="col-md-8 offset-md-1">
+    <h2>Users</h2>
+     <table class="table table-hover table-inverse">
+      <thead>
+        <th>image</th>
+        <th>name</th>
+      </thead>
+      </div>
+      <tbody>
+        <% @users.each do |user| %>
+        <tr>
+          <td><%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image.jpg" %></td>
+          <td><%= user.name %></td>
+          <td><%= link_to "Show",user_path(user.id) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+     </table>
+  </div>
+</div>

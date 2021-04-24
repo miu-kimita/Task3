@@ -1,0 +1,30 @@
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+
+<div class="container px-5 px-sm-0">
+  <div class="row">
+  <%= render 'users/list', user: @user,book: @book %>
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class="table table-hover table-inverse">
+        <tbody>
+          <th></th>
+          <td><%= image_tag('no_image.jpg') %>
+            <p><%= @book.user.name %></p>
+          </td>
+          <td><%= @book.title %></td>
+          <td><%= @book.body %></td>
+          <td><% if @user.id == current_user.id %>
+            <%= link_to "Edit", edit_book_path(@book.id), class:"btn btn-success" %>
+            <% end %>
+          </td>
+          <td><% if @user.id == current_user.id %>
+            <%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に消しますか？",class:"btn btn-success destroy(@book.id)" %>
+              <% end %>
+            </td>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
