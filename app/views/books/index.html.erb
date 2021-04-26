@@ -2,6 +2,13 @@
   <p><%= flash[:notice] %></p>
 <% end %>
 
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>件のエラーが発生しました
+  <% @book.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
 <div class="container px-5 px-sm-0">
   <div class="row">
     <%= render 'users/list', user: current_user,book: @book %>
@@ -19,8 +26,14 @@
       <tbody>
         <% @books.each do |book| %>
         <tr>
-          <td><%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image.jpg" %></td>
-          <td><%= book.title %></td>
+          <td><%= link_to user_path(book.user.id) do %>
+              <%= attachment_image_tag book.user, :profile_image, format: 'jpeg', fallback: "no_image.jpg" %></td>
+              <% end %>
+          </td>
+          <td><%= link_to book_path(book.id) do %>
+              <%= book.title %>
+              <% end %>
+          </td>
           <td><%= book.body %></td>
         </tr>
         <% end %>

@@ -4,16 +4,21 @@
 
 <div class="container px-5 px-sm-0">
   <div class="row">
-  <%= render 'users/list', user: @user,book: @book %>
+  <%= render 'users/list', user: @user,book: @new_book %>
     <div class="col-md-8 offset-md-1">
       <h2>Book detail</h2>
       <table class="table table-hover table-inverse">
         <tbody>
           <th></th>
-          <td><%= image_tag('no_image.jpg') %>
+          <td><%= link_to user_path(@user.id) do %>
+            <%= image_tag('no_image.jpg') %>
             <p><%= @book.user.name %></p>
+            <% end %>
           </td>
-          <td><%= @book.title %></td>
+          <td><%= link_to book_path(@book.id) do %>
+            <%= @book.title %>
+            <% end %>
+          </td>
           <td><%= @book.body %></td>
           <td><% if @user.id == current_user.id %>
             <%= link_to "Edit", edit_book_path(@book.id), class:"btn btn-success" %>
